@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPO</title>
+    <style>
+        body {
+            text-align: center;
+            margin: 100px;
+        }
+        .gap{
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+<form action="post">
+    <div id="bt">
+        <div class="cmd gap">
+            Verrouiller le cmd
+            <input type="checkbox" id="Verrouiler_cmd">
+        </div>
+        <div class="registre gap">
+            Verrouiller le regedit
+            <input type="checkbox" id="Verrouiler_registre">
+        </div>
+        <div class="compte gap">
+            Verrouiller le compte au bout de 5 mauvaises tentatives pendant 10 minutes
+            <input type="checkbox" id="Verrouiler_compte">
+        </div>
+        <div class="usb gap">
+            Verrouiller les ports usb
+            <input type="checkbox" id="Verrouiler_usb">
+        </div>
+    </div>
+    <input type="submit">
+</form>
+</body>
+</html>
