@@ -11,7 +11,7 @@
  * Également, il nous faut stocker l'information du statut actuel des GPOs.
  * 
  * Deuxième étape : afficher visuellement le statut des GPOs.
- * Pour ce faire, pour chaque GPOs, on set le statut des checkbox correspondant.
+ * Pour ce faire, pour chaque GPOs, on positionne  le statut des checkbox correspondant.
  * L'état validé (checked), correspond à une GPOs active.
  * 
  * Troisième étape : génération du script pour changer le statut des GPOs.
@@ -25,9 +25,9 @@
  *      Commande d'activation : (get-gpo "GPO_NAME").gpostatus="AllSettingsEnabled"
  *      Commande de désactivation : (get-gpo "GPO_NAME").gpostatus="AllSettingsDisabled"
  * 
- * Quatrième étape : téléchargement du script
- * Une fois le script généré, il est automatiquement téléchargé.
- * Afin de le rendre exécutable avec un simple clic, un second script est généré et téléchargé.
+ *  3.| Télécharger le script
+ * 
+ *  4.| Télécharger un second script afin de rendre le script powershell executable avec un simple clic.
  * Celui-ci est un script bash contenant la ligne suivante : powershell.exe C:\Users\Administrateur\Downloads\script_powershell.ps1
  *     
  */
@@ -47,45 +47,120 @@
   * Verrouiller_usb : désactivé
   */
 
- const gpos_statuts = [ ["Verrouiler_cmd", "AllSettingsEnabled"], 
-                                        ["Verrouiler_registre", "AllSettingsEnabled"],
-                                        ["Verrouiler_compte", "AllSettingsDisabled"], 
-                                        ["Verrouiler_usb", "AllSettingsDisabled"]
-                                    ];
-
+ const gposStatus = [ ["Verrouiller_cmd", "AllSettingsEnabled"], 
+                                     ["Verrouiller_registre", "AllSettingsEnabled"],
+                                     ["Verrouiller_compte", "AllSettingsDisabled"], 
+                                     ["Verrouiller_usb", "AllSettingsDisabled"]
+                                ];
+    
 /**
  * Début de la deuxième étape : afficher visuellement le statut des GPOs. 
  */
 
-// Initialisation des variables contenant les checkbox
-const checkbox_Verrouiler_cmd = document.querySelector('#Verrouiler_cmd');
-const checkbox_Verrouiler_registre = document.querySelector('#Verrouiler_registre');
-const checkbox_Verrouiler_compte = document.querySelector('#Verrouiler_compte');
-const checkbox_Verrouiler_usb = document.querySelector('#Verrouiler_usb');
+/**
+ * Initialisation de la liste checkboxGpo contenant toutes les checkbox associé aux gpos.
+ * Chaque élément de la liste possède un attribut data-nomGPO, idienfifiant le nom de la GPO à laquelle la checkbox correspond.
+ */
+const checkboxGpo = document.querySelectorAll('#checkbox_gpo');
 
-gpos_statuts.forEach(gpo => {
-
-    console.log("Statut de la gpo " + gpo[0] + " ; ");
+/**
+ * Pour chaque checkbox, on récupère le nom de la gpo à laquelle elle correspond
+ * Une fois le nom connu, on récupère le statut de la GPO.
+ * Si la GPO existe (statut non null), on positionne l'état de la checkbox (checck ou non) suivant le statut de la GPO
+ * Pour rappel, les statut des GPOs sont : activé (true) et désactivé (false)
+ * Si la GPO n'existe pas, alors on cache la checkbox.
+ */
+checkboxGpo.forEach(checkboxAPositionner => {
     
-    // Si gpo est activé, alors on check la checkbox, sinon on la uncheck
-        //la fonction eval permet de récupérer le contenu de la variable corresopndant au nom concaténé, permettant la variabilisation de variable
-    if( gpo[1] == "AllSettingsEnabled" ) {
-        console.log("activé");
-        eval("checkbox_"+gpo[0]).setAttribute("checked",true);
+    const  nomDeLaGpoCorrespondante   = checkboxAPositionner.getAttribute("data-nomGPO");
+    const  statutDeLaGpoCorrespondante = getGpoStatutByName(nomDeLaGpoCorrespondante); //boolean : true, false ou null
+
+    if( statutDeLaGpoCorrespondante != null) {
+
+        if( statutDeLaGpoCorrespondante ) {
+            checkboxAPositionner.checked = true;
+        } else {
+            checkboxAPositionner.checked = false;
+        }
     } else {
-        console.log("désactivé");
-        eval("checkbox_"+gpo[0]).removeAttribute("checked",false);
+        checkboxAPositionner.checked = false;
+        checkboxAPositionner.hidden = true;
     }
 });
 
-// Création de la rebrique pour le login :
+/**
+ * Début de la troisième étape : génération du script pour changer le statut des GPOs.
+ */
 
-//// Bouton de fermeture de la modale :
+/**
+ * Initialisation de la variable demandeGenerationScript pour y ajouter le listener
+ */
+const demandeGenerationScript = document.querySelector('#generate_script');
 
-const btnFermeture = document.querySelector("#fermer")
-const modale = document.querySelector("#loginmodale")
+demandeGenerationScript.addEventListener("click", function(event) {
 
-btnFermeture.addEventListener("click", function(event) {
-    event.preventDefault()
-    modale.style.display = "none";
-})
+    // retrait du comportement par défaut pour ne pas rafraichir la page
+    event.preventDefault();
+    // initialisation d'une nouvelle variable contenant script powershell qui sera à télécharger
+    let scriptPowershell = "";
+
+    // pour chaque checkbox
+    checkboxGpo.forEach(checkbox => {
+    
+        const  nomDeLaGpoCheck   = checkbox.getAttribute("data-nomGPO");
+        const  statutDeLaGpoCheck = getGpoStatutByName(nomDeLaGpoCheck); //boolean : true ou false
+
+        /**
+         * Si l'attribut checked est différent du statutDeLaGpoCorresopndante cela signifie que l'état a été modifié
+         * Dans ce cas, ajout la commande correspondant à l'état de la checkbox (activé / désactivé) dans la variable scriptPowershell
+         */
+        if( checkbox.checked != statutDeLaGpoCheck ) {
+
+            if( checkbox.checked ) {
+                scriptPowershell += "(get-gpo \""+nomDeLaGpoCheck+").gpostatus=\"AllSettingsEnabled\"\n";
+            } else {
+                scriptPowershell += "(get-gpo \""+nomDeLaGpoCheck+").gpostatus=\"AllSettingsDisabled\"\n";
+            }
+        }
+    });
+
+    // Téléchargement des fichiers
+    // doawnloadScript(scriptPowershell, "script powershell", "ps1");
+    // doawnloadScript("powershell.exe C:\Users\Administrateur\Downloads\script_powershell.ps1", "click me to start script powershell", "bat");
+});
+
+
+/**
+ * FONCTIONS
+ */
+
+
+/**
+ * @param {String} nomGPO - le nom d'une GPO
+ * @returns le statut du nom de la gpo donné
+ * @returns renvoie null si la GPO n'existe pas
+ */
+function getGpoStatutByName(nomGPO) {
+    
+    let statut_a_retourner = null;
+    gposStatus.forEach(element => {
+        if( element[0] == nomGPO ) {
+            // Si la GPO est activé
+            if( element[1] == "AllSettingsEnabled") {
+                statut_a_retourner = true;
+            } else {
+                statut_a_retourner = false;
+            }
+        }
+    });
+
+    return statut_a_retourner;
+
+}
+
+function doawnloadScript(data, name, type) {
+    const anchor = document.createElement('a')
+    anchor.href = window.URL.createObjectURL(new Blob([data], { type }))
+    anchor.download = name
+    anchor.click()
+}

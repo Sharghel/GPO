@@ -8,38 +8,38 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <form action="" method="POST" class="loginmodale" id="loginmodale">
+    <!-- <form action="" method="POST" class="loginmodale" id="loginmodale">
         <button id="fermer" class="fermer">X</button>
         <p>Modale d'authentification</p>
         <input type="text" placeholder="Veuillez mettre votre nom d'utilisateur" class="name">
         <input type="password" placeholder="Veuillez insérer votre mot de passe" class="mdp">
         <input type="submit" value="Connexion">
-    </form>
+    </form> -->
 <div class="bandeau">
     <div class="btn">
         <a class="login" href="#" title="Login">Login</a>
     </div>
 </div>
-<form action="" method="post" class="form" id="generate_script">
+<form action="" method="post" class="form">
     <div class="bt">
         <div class="cmd gap">
             Verrouiller le cmd
-            <input type="checkbox" id="Verrouiler_cmd">
+            <input type="checkbox" id="checkbox_gpo" data-nomGPO="Verrouiller_cmd">
         </div>
         <div class="registre gap">
             Verrouiller le regedit
-            <input type="checkbox" id="Verrouiler_registre">
+            <input type="checkbox" id="checkbox_gpo" data-nomGPO="Verrouiller_registre">
         </div>
         <div class="compte gap">
             Verrouiller le compte au bout de 5 mauvaises tentatives pendant 10 minutes
-            <input type="checkbox" id="Verrouiler_compte">
+            <input type="checkbox" id="checkbox_gpo" data-nomGPO="Verrouiller_compte">
         </div>
         <div class="usb gap">
             Verrouiller les ports usb
-            <input type="checkbox" id="Verrouiler_usb">
+            <input type="checkbox" id="checkbox_gpo" data-nomGPO="Verrouiller_usb">
         </div>
     </div>
-    <input type="submit" value="Génerer votre script">
+    <input type="submit" id ="generate_script" value="Génerer votre script">
 </form>
 
 <script src="generate_script.js"></script>
