@@ -24,10 +24,6 @@ body {
     border-radius: 15px;
 }
 
-.login {
-    margin-bottom: 10px;
-}
-
 .btn a{
     color: #7289da;
     background-color: #282b30;
@@ -86,8 +82,20 @@ input[type="submit"]:hover {
     display: inherit;
     position: absolute;
     margin: 150px 550px;
-    height: 380px;
+    height: 400px;
     width: 350px;
+    border-radius: 20px;
+}
+.loginmodale .fermer{
+    color: red;
+    border-color: red;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border-radius: 5px;
+    margin: 10px 10px;
+    margin-left: auto;
+    padding: 5px;
 }
 .loginmodale p{
     font-size: 40px;
@@ -100,8 +108,4 @@ input[type="submit"]:hover {
 }
 .loginmodale input[type="submit"] {
     border-radius: 10px;
-}
-
-.signupmodale{
-    display: none;
 }

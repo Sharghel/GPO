@@ -77,3 +77,15 @@ gpos_statuts.forEach(gpo => {
         eval("checkbox_"+gpo[0]).removeAttribute("checked",false);
     }
 });
+
+// Création de la rebrique pour le login :
+
+//// Bouton de fermeture de la modale :
+
+const btnFermeture = document.querySelector("#fermer")
+const modale = document.querySelector("#loginmodale")
+
+btnFermeture.addEventListener("click", function(event) {
+    event.preventDefault()
+    modale.style.display = "none";
+})
