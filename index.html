@@ -5,21 +5,28 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GPO</title>
-    <style>
-        body {
-            text-align: center;
-            margin: 100px;
-        }
-        .gap{
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<form action="post">
-    <div id="bt">
+    <form action="POST" class="loginmodale">
+        <p>
+            Modale d'authentification
+        </p>
+        <input type="text" placeholder="Veuillez mettre votre nom d'utilisateur" class="name">
+        <input type="password" placeholder="Veuillez insérer votre mot de passe" class="mdp">
+        <input type="submit" value="Connexion">
+    </form>
+    <form action="POST" class="signupmodale">
+    
+    </form>
+<div class="bandeau">
+    <div class="btn">
+        <a class="login" href="#" title="Login">Login</a>
+        <a class="signup" href="#" title="Sign up">Sign up</a>
+    </div>
+</div>
+<form action="post" class="form">
+    <div class="bt">
         <div class="cmd gap">
             Verrouiller le cmd
             <input type="checkbox" id="Verrouiler_cmd">
@@ -37,7 +44,7 @@
             <input type="checkbox" id="Verrouiler_usb">
         </div>
     </div>
-    <input type="submit">
+    <input type="submit" value="Génerer votre script">
 </form>
 </body>
 </html>

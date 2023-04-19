@@ -1,0 +1,107 @@
+body {
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    background-color: #36393e;
+    color: #7289da;
+    font-size: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.bandeau{
+    padding: 30px 50px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: right;
+}
+
+.btn a,.btn a:visited {
+    padding: 20px 40px;
+    text-decoration: none;
+    display: block;
+    border: solid;
+    border-color: #282b30;
+    border-radius: 15px;
+}
+
+.login {
+    margin-bottom: 10px;
+}
+
+.btn a{
+    color: #7289da;
+    background-color: #282b30;
+}
+.btn a:hover{
+    color: #7289da;
+    border-color: #7289da;
+}
+
+
+
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+}
+
+.bt {
+    width: 100%;
+    max-width: 750px;
+}
+
+.gap {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+input[type="submit"] {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #7289da;
+    color: #fff;
+    font-size: 18px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+input[type="submit"]:hover {
+    background-color: #5c6bc0;
+}
+
+
+
+
+.loginmodale{
+    background-color: #fff;
+    display: inherit;
+    position: absolute;
+    margin: 150px 550px;
+    height: 380px;
+    width: 350px;
+}
+.loginmodale p{
+    font-size: 40px;
+}
+.loginmodale input[type="text"],.loginmodale input[type="password"] {
+    margin: 10px 2px;
+    padding: 10px 10px;
+    width: 300px;
+    border-radius: 10px;
+}
+.loginmodale input[type="submit"] {
+    border-radius: 10px;
+}
+
+.signupmodale{
+    display: none;
+}
