@@ -164,3 +164,24 @@ function doawnloadScript(data, name, type) {
     anchor.download = name
     anchor.click()
 }
+
+// Création de la rebrique pour le login :
+const modale = document.querySelector("#loginmodale")
+
+//// Bouton d'ouverture de la modale :
+
+const OuvertureLoginModale = document.querySelector("#OuvertureLoginModale")
+
+OuvertureLoginModale.addEventListener("click", function(event) {
+    event.preventDefault()
+    modale.style.display = "inherit";
+})
+
+//// Bouton de fermeture de la modale :
+
+const btnFermeture = document.querySelector("#fermer")
+
+btnFermeture.addEventListener("click", function(event) {
+    event.preventDefault()
+    modale.style.display = "none";
+})
