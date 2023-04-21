@@ -1,35 +1,10 @@
 /*
  ***************************************************
- * Auteur : Corentin Hallot                         *
- * Objectif : script permettant la gestion des GPOs *
- * Date de début : 19/04/2023                       *
- * Dernière modification : 19/04/2023               *
+ * Auteur : Corentin Hallot
+ * Objectif : script permettant la gestion des GPOs
+ * Date de début : 19/04/2023
+ * Dernière modification : 21/04/2023
  ****************************************************
- *
- * Première étape : récupération du statut de toute les GPOs.
- * Pour ce faire, on utilise un script powershell récupérant le statut de toute les GPOs.
- * Également, il nous faut stocker l'information du statut actuel des GPOs.
- * 
- * Deuxième étape : afficher visuellement le statut des GPOs.
- * Pour ce faire, pour chaque GPOs, on positionne  le statut des checkbox correspondant.
- * L'état validé (checked), correspond à une GPOs active.
- * 
- * Troisième étape : génération du script pour changer le statut des GPOs.
- * Lorsque le formulaire de demande de génération de script est reçu, on effectue les étapes suivantes : 
- *  1.| Pour chaque checkbox, on compare si son état (checked ou non) est différent de la GPO correspondante.
- *      Pour simplifier le traitement, l'id de chaque checkbox correspond au nom d'une GPO.
- * 
- *  2.| Si l'état de la checkbox est différent du statut de la GPO, 
- *      alors la commande necessaire pour changer le statut de la GPO est insérée dans le script powershell.
- * 
- *      Commande d'activation : (get-gpo "GPO_NAME").gpostatus="AllSettingsEnabled"
- *      Commande de désactivation : (get-gpo "GPO_NAME").gpostatus="AllSettingsDisabled"
- * 
- *  3.| Télécharger le script
- * 
- *  4.| Télécharger un second script afin de rendre le script powershell executable avec un simple clic.
- * Celui-ci est un script bash contenant la ligne suivante : powershell.exe C:\Users\Administrateur\Downloads\script_powershell.ps1
- *     
  */
 
  /**
@@ -52,6 +27,9 @@
                                      ["Verrouiller_compte", "AllSettingsDisabled"], 
                                      ["Verrouiller_usb", "AllSettingsDisabled"]
                                 ];
+
+// LIRE LE FICHIER : "RessourcesFiles\AllGposStatus.csv"
+
     
 /**
  * Début de la deuxième étape : afficher visuellement le statut des GPOs. 
@@ -125,8 +103,8 @@ demandeGenerationScript.addEventListener("click", function(event) {
     });
 
     // Téléchargement des fichiers
-    // doawnloadScript(scriptPowershell, "script powershell", "ps1");
-    // doawnloadScript("powershell.exe C:\Users\Administrateur\Downloads\script_powershell.ps1", "click me to start script powershell", "bat");
+    doawnloadScript(scriptPowershell, "updateGposStatus.ps1", "text/ps1");
+    // doawnloadScript("powershell.exe C:\Users\Administrateur\Downloads\script_powershell.ps1", "click me to start script powershell.bat", "bat");
 });
 
 
@@ -161,8 +139,8 @@ function getGpoStatutByName(nomGPO) {
 function doawnloadScript(data, name, type) {
     const anchor = document.createElement('a')
     anchor.href = window.URL.createObjectURL(new Blob([data], { type }))
-    anchor.download = name
-    anchor.click()
+    anchor.download = name;
+    anchor.click();
 }
 
 // Création de la rebrique pour le login :
@@ -185,27 +163,3 @@ btnFermeture.addEventListener("click", function(event) {
     event.preventDefault()
     modale.style.display = "none";
 })
-
-/**
- * TEST
- */
-
-// var Shell =  require('node-powershell');
-
-// const ps = new Shell({
-//   executionPolicy: 'Bypass',
-//   noProfile: true,
-//   usePwsh: true
-// });
-
-// ps.addCommand('echo node-powershell');
-// ps.invoke()
-// .then(output => {
-//   console.log(output);
-// })
-// .catch(err => {
-//   console.log(err);
-// });
-
-var spawn = require("child_process").spawn;
-spawn("powershell.exe",["C:\Users\hallo\OneDrive\Bureau\AllSettingsDisabled.ps1"]);

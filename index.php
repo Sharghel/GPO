@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GPO</title>
     <link rel="stylesheet" href="style.css">
+    <?php include('PHP\getAllGposStatus.php') ?>
+    <!-- <?php include('PHP\executeScriptUpdateGpo.php') ?> -->
 </head>
 <body>
     <form action="" method="POST" class="loginmodale" id="loginmodale">
@@ -41,6 +43,6 @@
     </div>
     <input type="submit" id ="generate_script" value="Génerer votre script">
 </form>
-<script src="generate_script.js"></script>
+<script src="JavaScript\generateScriptUpdateGpo.js"></script>
 </body>
 </html>
