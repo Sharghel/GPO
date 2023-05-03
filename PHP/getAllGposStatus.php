@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /*
  ***************************************************
  * Auteur : Corentin Hallot
@@ -15,7 +15,7 @@
 $pathScriptGetAllGposStatus = 'RessourcesFiles\GetAllGposStatus.ps1';
 $prepare = 'powershell -executionpolicy remotesigned -command "& {"'.$pathScriptGetAllGposStatus.'"; exit $err}"';
 $resultPowershell = shell_exec($prepare);
-
+/*
 $resultPowershell = "Verrouiller_cmd
 AllSettingsDisabled
 \\0
@@ -28,6 +28,7 @@ AllSettingsDisabled
 Verrouiller_usb
 AllSettingsDisabled
 \\0";
+*/
 echo("Chaine initiale : " . $resultPowershell . "<br>");
 
 /**
